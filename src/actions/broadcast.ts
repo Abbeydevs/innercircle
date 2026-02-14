@@ -27,7 +27,7 @@ export async function sendBroadcastEmail(data: {
       const chunk = users.slice(i, i + chunkSize);
 
       const emailsToSend = chunk.map((user) => ({
-        from: "Inner Circle <onboarding@resend.dev>",
+        from: "Inner Circle <innercircle@thesoftwarehub.tech>",
         to: user.email,
         subject: data.subject,
         html: `
@@ -38,15 +38,20 @@ export async function sendBroadcastEmail(data: {
         `,
       }));
 
-      await resend.batch.send(emailsToSend);
+      const { error: resendError } = await resend.batch.send(emailsToSend);
+
+      if (resendError) {
+        console.error("Resend Batch Error:", resendError);
+        return { success: false, error: resendError.message };
+      }
     }
 
     return { success: true };
   } catch (error) {
-    console.error("Broadcast Error:", error);
+    console.error("Broadcast Execution Error:", error);
     return {
       success: false,
-      error: "Failed to send broadcast. Please try again.",
+      error: "Failed to execute broadcast. Please try again.",
     };
   }
 }
