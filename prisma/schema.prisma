@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model WaitlistUser {
+  id             String   @id @default(uuid())
+  firstName      String
+  email          String   @unique
+  phoneNumber    String
+  attendedBefore Boolean
+  createdAt      DateTime @default(now())
+}
+
+model AdminCode {
+  id         String    @id @default(uuid())
+  code       String    @unique
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime? 
+}
