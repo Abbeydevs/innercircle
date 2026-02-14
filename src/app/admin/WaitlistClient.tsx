@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BroadcastModal } from "@/components/BroadcastModal";
 
 type WaitlistUser = {
   id: string;
@@ -75,9 +76,7 @@ export default function WaitlistClient({ data }: { data: WaitlistUser[] }) {
           {isExporting ? "Exporting..." : "Export to CSV"}
         </Button>
 
-        <Button className="bg-[#E5C158] hover:bg-[#c9a642] text-[#0B0B0F] font-bold rounded-none">
-          Send Broadcast Email
-        </Button>
+        <BroadcastModal userCount={data.length} />
       </div>
 
       <div className="border border-white/10 rounded-none bg-white/2 overflow-hidden">

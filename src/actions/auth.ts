@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { SignJWT } from "jose";
+import { redirect } from "next/navigation";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
@@ -40,4 +41,9 @@ export async function loginWithCode(code: string) {
     console.error("Login error:", error);
     return { success: false, error: "An error occurred during login." };
   }
+}
+
+export async function logoutAdmin() {
+  (await cookies()).delete("admin_session");
+  redirect("/admin/login");
 }

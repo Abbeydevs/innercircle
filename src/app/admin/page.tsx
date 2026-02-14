@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { Albert_Sans } from "next/font/google";
 import WaitlistClient from "./WaitlistClient";
+import { logoutAdmin } from "@/actions/auth";
+import { Button } from "@/components/ui/button";
 
 const albert = Albert_Sans({ subsets: ["latin"] });
 
@@ -26,6 +28,16 @@ export default async function AdminDashboard() {
             </p>
           </div>
         </div>
+
+        <form action={logoutAdmin}>
+          <Button
+            type="submit"
+            variant="outline"
+            className="bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white rounded-none uppercase tracking-widest text-xs px-6"
+          >
+            Logout
+          </Button>
+        </form>
 
         <WaitlistClient data={waitlistUsers} />
       </div>
