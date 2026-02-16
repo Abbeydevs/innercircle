@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 
 const albert = Albert_Sans({ subsets: ["latin"] });
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const waitlistUsers = await prisma.waitlistUser.findMany({
     orderBy: { createdAt: "desc" },
